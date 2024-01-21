@@ -1,6 +1,7 @@
 # Project Name - Blog Development Challenge
 
 ## Setting up virtual environment in python:
+## Python version = 3.9.5
 #### python -m venv venv
 #### venv\Scripts\activate
 
@@ -16,3 +17,8 @@
 
 ## Create super user
 #### python manage.py createsuperuser
+
+## Install requirements file
+#### pip freeze > requirements.txt
+
+
