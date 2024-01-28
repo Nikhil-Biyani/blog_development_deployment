@@ -6,19 +6,21 @@
     <br/><br/>
     <ul>
         {% for post in object_list %}
-        <li>
-            <a href="{% url 'article-detail' post.pk %}">{{post.title}}</a> - {{post.category}} -
-            {{post.author.first_name}} {{post.author.last_name}} <small> - {{post.posted_date}} </small>
-            {% if user.is_authenticated %}
-                {% if user.id == post.author.id %}
-                    <small> - <a href="{% url 'update_post' post.pk %}">(EDIT)</a>
-                              <a href="{% url 'delete_post' post.pk %}">(DELETE)</a>
-                    </small> <br/>
+            <li>
+                <a href="{% url 'article-detail' post.pk %}">{{post.title}}</a>
+                - <a href="{% url 'category' post.category|slugify %}">{{post.category}}</a> -
+                {{post.author.first_name}} {{post.author.last_name}}
+                <small> - {{post.posted_date}} </small>
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <small> - <a href="{% url 'update_post' post.pk %}">(EDIT)</a>
+                                  <a href="{% url 'delete_post' post.pk %}">(DELETE)</a>
+                        </small> <br/>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-            {{post.body | slice:":200" | safe}}
-            <br/><br/>
-        </li>
-            {% endfor %}
+                {{post.body | slice:":200" | safe}}
+                <br/><br/>
+            </li>
+        {% endfor %}
     </ul>
 {% endblock %}

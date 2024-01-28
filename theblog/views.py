@@ -13,6 +13,11 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('article-detail', args=[str(pk)]))
 
 
+def CategoryView(request, categories):
+    category_posts = Post.objects.filter(category=categories.replace('-', ' '))
+    return render(request, 'categories.html', {'categories': categories.title().replace('-', ' '), 'category_posts': category_posts})
+
+
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
