@@ -23,17 +23,37 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                {% if cat_menu %}
+                    <li>
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Categories
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                {% for item in cat_menu %}
+                                    <a class="dropdown-item" href="{% url 'category' item|slugify %}">{{item}}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link, btn btn-secondary" href="{% url 'category-list' %}" style="margin-left: 10px">Categories</a>
+                    </li>
+                {% endif %}
+
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'add_post' %}">Add Post</a>
+                        <a class="nav-link, btn btn-secondary" href="{% url 'add_post' %}" style="margin-left: 10px">Add Post</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'add_category' %}">Add Category</a>
+                        <a class="nav-link, btn btn-secondary" href="{% url 'add_category' %}" style="margin-left: 10px">Add Category</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link, btn btn-secondary" href="{% url 'logout' %}" style="margin-left: 10px">Logout</a>
                     </li>
 
                 {% else %}

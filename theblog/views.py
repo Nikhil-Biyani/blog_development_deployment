@@ -12,6 +12,10 @@ def LikeView(request, pk):
     post.likes.add(request.user)
     return HttpResponseRedirect(reverse('article-detail', args=[str(pk)]))
 
+def CategoryListView(request):
+    cat_menu_list = Category.objects.all()
+    return render(request, 'category_list.html', {'cat_menu_list': cat_menu_list})
+
 
 def CategoryView(request, categories):
     category_posts = Post.objects.filter(category=categories.replace('-', ' '))
@@ -23,10 +27,22 @@ class HomeView(ListView):
     template_name = 'home.html'
     ordering = ['-posted_date']
 
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
+
 
 class ArticleDetailView(DetailView):
     model = Post
     template_name = 'article_details.html'
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
 
 
 class AddPostView(CreateView):
@@ -35,11 +51,23 @@ class AddPostView(CreateView):
     template_name = 'add_post.html'
     # fields = '__all__'
 
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(AddPostView, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
+
 
 class AddCategoryView(CreateView):
     model = Category
     template_name = 'add_category.html'
     fields = '__all__'
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(AddCategoryView, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
 
 
 class UpdatePostView(UpdateView):
@@ -48,8 +76,20 @@ class UpdatePostView(UpdateView):
     template_name = 'update_post.html'
     # fields = ['title', 'title_tag', 'body']
 
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(UpdateView, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
+
 
 class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(DeletePostView, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
