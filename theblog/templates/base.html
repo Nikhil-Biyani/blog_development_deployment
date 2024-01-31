@@ -52,8 +52,15 @@
                         <a class="nav-link, btn btn-secondary" href="{% url 'add_category' %}" style="margin-left: 10px">Add Category</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link, btn btn-secondary" href="{% url 'edit_profile' %}" style="margin-left: 10px">Edit Profile</a>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle btn btn-secondary" style="margin-left: 10px" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Profile
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a>
+                            <a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit Profile Page</a>
+                            <a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Show Profile Page</a>
+                        </div>
                     </li>
 
                     <li class="nav-item">
