@@ -1,5 +1,10 @@
 # Project Name - Blog Development Challenge
 
+## Deployment Link
+``` bash
+https://blog-devo.onrender.com/
+```
+
 ## Setting up virtual environment in python:
 ## Python version = 3.9.5
 #### python -m venv venv
